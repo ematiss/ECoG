@@ -1,0 +1,2 @@
+# ECoG
+NMA Group Project
