@@ -10,3 +10,8 @@ NMA Group Project
 5) Explore between-subject equivalence with interpolation and electrode pruning
 6) Apply machine learning analysis to between-subject interpolation
 7) Project interpolation back onto standardized brain representation for visualization
+
+## Wishlist
+
+* Visualization
+* Pruning algorithm
