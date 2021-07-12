@@ -24,11 +24,16 @@ def download(fname, url):
 					fid.write(r.content)
 
 
+def load(fname):
+	data = np.load(fname, allow_pickle=True)['dat']
+	return data
+
 def main():
 	fname = 'memory_nback.npz'
 	url = "https://osf.io/xfc7e/download"
 
 	download(fname, url)
+	data = load(fname)
 	exit(0)
 
 if __name__ == "__main__":
