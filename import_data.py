@@ -3,6 +3,10 @@ import requests
 import numpy as np
 import seaborn as sns
 import pandas as pd
+from matplotlib import rcParams
+from matplotlib import pyplot as plt
+from nilearn import plotting
+from nimare import utils
 
 
 def download():
