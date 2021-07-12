@@ -28,6 +28,10 @@ def load(fname):
 	data = np.load(fname, allow_pickle=True)['dat']
 	return data
 
+def time_lock(data, before, after):
+
+	return aligned
+
 def main():
 	fname = 'memory_nback.npz'
 	url = "https://osf.io/xfc7e/download"
