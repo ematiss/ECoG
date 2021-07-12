@@ -9,10 +9,7 @@ from nilearn import plotting
 from nimare import utils
 
 
-def download():
-	fname = 'memory_nback.npz'
-	url = "https://osf.io/xfc7e/download"
-
+def download(fname, url):
 	if not os.path.isfile(fname):
 		print("Loading file...")
 		try:
@@ -28,7 +25,10 @@ def download():
 
 
 def main():
-	download()
+	fname = 'memory_nback.npz'
+	url = "https://osf.io/xfc7e/download"
+
+	download(fname, url)
 	exit(0)
 
 if __name__ == "__main__":
