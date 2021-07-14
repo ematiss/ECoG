@@ -97,7 +97,7 @@ class DataWrapper:
         return events, on, response, expected, rt
 
 
-    def getEpochs(self, subject, trial, before=-400, after=1600):
+    def getEpochs(self, subject: int, trial: int, before=-400, after=1600):
         event_id = dict(wrong_response=0, correct_response=1)
         aligned, on, response, expected, rt = self.getEvents(self, subject, trial, before, after)
         data = numpy.swapaxes(aligned, 1, 2)
