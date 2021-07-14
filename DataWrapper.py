@@ -3,15 +3,16 @@
 class DataWrapper:
     data = []
 
-    def getTrial(self, subject, trial)
+    def getTrial(self, subject, trial):
         return self.data[subject][trial]
 
     def __init__(self):
+        return
 
     def __init__(self, data: ndarray):
         data = data.copy()
 
-    def __init__(self, url: str, fname = 'data.npz):
+    def __init__(self, url: str, fname = 'data.npz'):
         if not os.path.isfile(fname):
             print("Loading file...")
             try:
