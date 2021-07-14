@@ -9,9 +9,18 @@ import mne
 
 
 class DataWrapper:
+    """The DataWrapper class provides an easy to use abstraction for the data provided in the NMA ECoG dataset."""
+
     data = []
 
     def __init__(self, url: str = None, fname: str = None, data=None):
+        """Constructor for wrapper.
+
+        Args:
+            url (str, optional): URL to dataset. Defaults to None.
+            fname (str, optional): Filename if saving/loading locally. Defaults to None.
+            data ([type], optional): Array of raw data. Defaults to None.
+        """
 
         if url is not None and fname is not None:
             if not os.path.isfile(fname):
@@ -50,9 +59,27 @@ class DataWrapper:
             pass
 
     def getTrial(self, subject, trial):
+        """Return raw data for subject in a specific trial in the format provided by dataset.
+
+        Args:
+            subject (int): Subject index
+            trial (int): Trial index
+
+        Returns:
+            ndarray: dataset for retrieved trial
+        """
         return self.data[subject][trial]
 
     def getTrialDataFrame(self, subject, trial):
+        """Return trial data for subject in a specific trial in a pandas dataframe.
+
+        Args:
+            subject (int): Subject index
+            trial (int): Trial index
+
+        Returns:
+            dataframe: trial data in dataframe
+        """
         raw = self.data[subject][trial]
 
         dataframe = pandas.DataFrame(
@@ -98,6 +125,15 @@ class DataWrapper:
         return dataframe
 
     def getMNE(self, subject, trial):
+        """Return MNE object for trial.
+
+        Args:
+            subject (int): Subject index
+            trial (int): Trial index
+
+        Returns:
+            MNEobj: MNE data object
+        """
         raw = self.data[subject][trial]
         data = numpy.swapaxes(raw["V"], 0, 1)
         info = mne.create_info(data.shape[0], 1000)
@@ -105,6 +141,22 @@ class DataWrapper:
         return m
 
     def getEvents(self, subject, trial, before=-400, after=1600):
+        """Time lock the events in a trial.
+
+        Args:
+            subject (int): Subject index
+            trial (int): Trial index
+            before (int, optional): Milliseconds before event. Defaults to -400.
+            after (int, optional): Milliseconds after event. Defaults to 1600.
+
+        Returns:
+        ndarray: Array in the shape [event][time][channel]
+        ndarray: Array of event timestamps
+        ndarray: Array of recorded responses
+        ndarray: Array of expected responses
+        ndarray: Array of reaction times. Offset from event timestamp.
+
+        """
         raw = self.data[subject][trial]
         V = raw["V"]
         nt, nchan = V.shape
@@ -122,6 +174,17 @@ class DataWrapper:
         return events, on, response, expected, rt
 
     def getEpochs(self, subject: int, trial: int, before=-400, after=1600):
+        """Return MNE Epoch data for trial.
+
+        Args:
+            subject (int): Subject index
+            trial (int): Trial index
+            before (int, optional): Event offset before response. Defaults to -400.
+            after (int, optional): Event offset after response. Defaults to 1600.
+
+        Returns:
+            EpochsArray: MNE EpochsArray for specific trial.
+        """
         event_id = dict(wrong_response=0, correct_response=1)
         aligned, on, response, expected, rt = self.getEvents(
             subject=subject, trial=trial, before=before, after=after
