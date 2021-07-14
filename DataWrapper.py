@@ -5,6 +5,7 @@ import io
 import requests
 import numpy
 import pandas
+import mne
 
 class DataWrapper:
     data = []
@@ -68,4 +69,11 @@ class DataWrapper:
             dataframe = dataframe.append(cframe, ignore_index=True)
 
         return dataframe
+
+    def getMNE(self, subject, trial):
+        raw = self.data[subject][trial]
+        data = numpy.swapaxes(raw['V'], 0, 1)
+        info = mne.create_info(data.shape[0], 1000)
+        m = mne.io.RawArray(data, info)
+        return m
 
