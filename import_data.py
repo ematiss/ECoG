@@ -29,7 +29,13 @@ def load(fname):
 	return data
 
 def time_lock(data, before, after):
+	nt, nchan = V.shape
+	nstim = len(dat['t_on'])
 
+	# use a timerange from 400ms before to 1600ms after the stimulus onset
+	trange = np.arange(-400, 1600)
+	ts = dat['t_on'][:,np.newaxis] + trange
+	V_epochs = np.reshape(V[ts, :], (nstim, 2000, nchan))
 	return aligned
 
 def main():
