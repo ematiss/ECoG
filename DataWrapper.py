@@ -94,5 +94,24 @@ class DataWrapper:
 
         return events, on, response, expected, rt
 
+
+    def trial_epoch(self, data, subject, trial, before=-400, after=1600):
+        event_id = dict(wrong_response=0, correct_response=1)
+        aligned, on, response, expected, rt = self.getEvents(self, subject, trial, before, after)
+        data = numpy.swapaxes(aligned, 1, 2)
+        info = mne.create_info(data.shape[1], 1000)
+
+        # events = np.zeros((len(data), 3), dtype=int)
+        # events[0] = np.arange(len(data))
+        # events[1] = after-before
+        # events[2] = response == expected
+
+        events = numpy.vstack((numpy.arange(len(data)), numpy.ones(len(data))*(after-before), response == expected)).astype(int)
+
+        #events = np.sort(events, axis=0)
+        epochs = mne.EpochsArray(data=data, info=info, event_id=event_id, events=events)
+
+        return epochs
+
         
 
