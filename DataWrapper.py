@@ -77,3 +77,22 @@ class DataWrapper:
         m = mne.io.RawArray(data, info)
         return m
 
+    def getEvents(self, subject, trial, before=-400, after=1600):
+        raw = self.data[subject][trial]
+        V = raw['V']
+        nt, nchan = V.shape
+        nstim = len(raw['t_on'])
+
+        trange = numpy.arange(before, after)
+        ts = raw['t_on'][:,numpy.newaxis] + trange
+        events = numpy.reshape(V[ts, :], (nstim, after - before, nchan))
+        
+        on = raw['t_on']
+        response = raw['response']
+        expected = raw['target']
+        rt = raw['rt']
+
+        return events, on, response, expected, rt
+
+        
+
