@@ -26,7 +26,7 @@ class DataWrapper:
                         with open(fname, "wb") as fid:
                             fid.write(r.content)
             self.data = numpy.load(fname, allow_pickle=True)['dat']
-
+            
         elif url is not None:
             try:
                 r = requests.get(url)
@@ -38,6 +38,8 @@ class DataWrapper:
                 else:
                     self.data = numpy.load(io.BytesIO(r.content), allow_pickle=True)['dat']
 
+        elif fname is not None:
+            self.data = numpy.load(fname, allow_pickle=True)['dat']
 
         elif data is not None:
             self.data = data
@@ -95,7 +97,7 @@ class DataWrapper:
         return events, on, response, expected, rt
 
 
-    def trial_epoch(self, data, subject, trial, before=-400, after=1600):
+    def getEpochs(self, subject, trial, before=-400, after=1600):
         event_id = dict(wrong_response=0, correct_response=1)
         aligned, on, response, expected, rt = self.getEvents(self, subject, trial, before, after)
         data = numpy.swapaxes(aligned, 1, 2)
