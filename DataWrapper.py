@@ -99,7 +99,7 @@ class DataWrapper:
 
     def getEpochs(self, subject: int, trial: int, before=-400, after=1600):
         event_id = dict(wrong_response=0, correct_response=1)
-        aligned, on, response, expected, rt = self.getEvents(self, subject, trial, before, after)
+        aligned, on, response, expected, rt = self.getEvents(subject=subject, trial=trial, before=before, after=after)
         data = numpy.swapaxes(aligned, 1, 2)
         info = mne.create_info(data.shape[1], 1000)
 
@@ -108,7 +108,8 @@ class DataWrapper:
         # events[1] = after-before
         # events[2] = response == expected
 
-        events = numpy.vstack((numpy.arange(len(data)), numpy.ones(len(data))*(after-before), response == expected)).astype(int)
+        events = numpy.swapaxes(numpy.vstack((numpy.arange(len(data)), numpy.ones(len(data))*(after-before), response == expected)).astype(int), 0, 1)
+        
 
         #events = np.sort(events, axis=0)
         epochs = mne.EpochsArray(data=data, info=info, event_id=event_id, events=events)
