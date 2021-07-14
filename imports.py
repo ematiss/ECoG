@@ -11,3 +11,4 @@ from matplotlib import rcParams
 from matplotlib import pyplot as plt
 from nilearn import plotting
 from nimare import utils
+from tqdm import tqdm
