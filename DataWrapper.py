@@ -150,11 +150,11 @@ class DataWrapper:
             after (int, optional): Milliseconds after event. Defaults to 1600.
 
         Returns:
-        ndarray: Array in the shape [event][time][channel]
-        ndarray: Array of event timestamps
-        ndarray: Array of recorded responses
-        ndarray: Array of expected responses
-        ndarray: Array of reaction times. Offset from event timestamp.
+            ndarray: Array in the shape [event][time][channel]
+            ndarray: Array of event timestamps
+            ndarray: Array of recorded responses
+            ndarray: Array of expected responses
+            ndarray: Array of reaction times. Offset from event timestamp.
 
         """
         raw = self.data[subject][trial]
