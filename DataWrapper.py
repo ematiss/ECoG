@@ -2,6 +2,7 @@
 
 import os
 import io
+from types import DynamicClassAttribute
 import requests
 import numpy
 import pandas
@@ -192,21 +193,12 @@ class DataWrapper:
         data = numpy.swapaxes(aligned, 1, 2)
         info = mne.create_info(data.shape[1], 1000)
 
-        # events = np.zeros((len(data), 3), dtype=int)
-        # events[0] = np.arange(len(data))
-        # events[1] = after-before
-        # events[2] = response == expected
-
-        events = numpy.swapaxes(
-            numpy.vstack(
-                (
-                    numpy.arange(len(data)),
-                    numpy.ones(len(data)) * (after - before),
-                    response == expected,
-                )
-            ).astype(int),
-            0,
-            1,
+        events = numpy.column_stack(
+            (
+                numpy.arange(len(data), dtype=int),
+                numpy.ones(len(data), dtype=int) * (after - before),
+                (response == expected).astype(int),
+            )
         )
 
         # events = np.sort(events, axis=0)
