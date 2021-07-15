@@ -1,6 +1,7 @@
 # ECoG
 NMA Group Project
 
+
 ## Current Plan
 
 1) Apply a power spectrum analysis to within-subject data
@@ -11,6 +12,8 @@ NMA Group Project
 6) Apply machine learning analysis to between-subject interpolation
 7) Project interpolation back onto standardized brain representation for visualization
 
+## Literature Review
+[Link to Google Doc list of papers and summaries](https://docs.google.com/document/d/1E7OyIJhL5ngDALeNqR2FIgbHMyC6esvj60_wHXJFnz4/edit)
 ## Wishlist
 
 * Visualization
