@@ -14,6 +14,7 @@ NMA Group Project
 
 ## Literature Review
 [Link to Google Doc list of papers and summaries](https://docs.google.com/document/d/1E7OyIJhL5ngDALeNqR2FIgbHMyC6esvj60_wHXJFnz4/edit)
+[Link to Stanford dataset repository](https://exhibits.stanford.edu/data/catalog/zk881ps0522)
 ## Wishlist
 
 * Visualization
